@@ -12,12 +12,15 @@ public class TimingManager : MonoBehaviour
     [SerializeField] Transform[] timingRect = null; // 판정 범위 (Perfect, Cool, Good, Bad)
     Vector2[] timingBoxs = null;                    // 실제 판정에 쓸 배열 (판정 범위의 최소값(x), 최대값(y))
 
+    GameObject director;
+
     public bool hit = false; // 노트가 판정범위 안에 있는지 확인
 
 
     // Start is called before the first frame update
     void Start()
     {
+        director = GameObject.Find("GameDirector");
         // 타이밍 박스 설정
         timingBoxs = new Vector2[timingRect.Length]; // timingRect 배열의 크기로 판정 범위 맞춰줌
 
@@ -64,6 +67,8 @@ public class TimingManager : MonoBehaviour
                 {
                     hit = true;
 
+                    //director.GetComponent<GameDirector>().Hit();
+
                     // 판정 범위를 보여줄 필요가 없다면 비활성화
                     boxNoteList[i].GetComponent<NoteController>().HideNote();
                     boxNoteList.RemoveAt(i);
@@ -73,6 +78,8 @@ public class TimingManager : MonoBehaviour
                 else
                 {
                     hit = false;
+
+                    //director.GetComponent<GameDirector>().NoHit();
                     //Debug.Log("miss!!!!!!");
                 }
                 hit = false;

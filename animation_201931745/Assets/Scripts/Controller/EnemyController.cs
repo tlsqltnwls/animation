@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
     TimingManager timingManager;
     GameObject player;
     EnemyGenerator enemy;
+    GameObject gameDirector;
     
 
     private void Start()
@@ -26,6 +27,7 @@ public class EnemyController : MonoBehaviour
         timingManager = GameObject.Find("NoteGenerator").GetComponent<TimingManager>();
         player = GameObject.Find("Player");
         enemy = GameObject.Find("EnemyGenerator").GetComponent<EnemyGenerator>();
+        gameDirector = GameObject.Find("GameDirector");
     }
 
 
@@ -53,7 +55,9 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            gameDirector.GetComponent<GameDirector>().DecreaseHp();
             Dead();
+            
         }
 
         for (int i = 0; i < enemy.boxEnemyList.Count; i++)
