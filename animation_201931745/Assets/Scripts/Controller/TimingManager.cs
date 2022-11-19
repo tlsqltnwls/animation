@@ -12,6 +12,9 @@ public class TimingManager : MonoBehaviour
     [SerializeField] Transform[] timingRect = null; // 판정 범위 (Perfect, Cool, Good, Bad)
     Vector2[] timingBoxs = null;                    // 실제 판정에 쓸 배열 (판정 범위의 최소값(x), 최대값(y))
 
+    public bool hit = false; // 노트가 판정범위 안에 있는지 확인
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,12 +39,15 @@ public class TimingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
     }
 
     
     public void CheckTiming()
     {
+
        
+
         for (int i = 0; i < boxNoteList.Count; i++)
                         // 생성된 노트의 개수만큼 반복문
         {
@@ -51,19 +57,27 @@ public class TimingManager : MonoBehaviour
             for (int j = 0; j < timingBoxs.Length; j++)
                         // 노트마다 판정범위 안에 있는지 확인해야 됨
             {
-               
+                
+
                 Debug.Log("notePosX: " + notePosX);
                 if (timingBoxs[j].x <= notePosX && notePosX <= timingBoxs[j].y)
                 {
+                    hit = true;
+
                     // 판정 범위를 보여줄 필요가 없다면 비활성화
                     boxNoteList[i].GetComponent<NoteController>().HideNote();
                     boxNoteList.RemoveAt(i);
                     Debug.Log("Hit" + j);
                     return;
                 }
+                else
+                {
+                    hit = false;
+                    //Debug.Log("miss!!!!!!");
+                }
+                hit = false;
             }
         }
-        Debug.Log("miss!!!!!!");
 
     }
 

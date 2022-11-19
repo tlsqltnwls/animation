@@ -23,7 +23,7 @@ public class MusicController : MonoBehaviour
             if (collision.CompareTag("Note"))
             // 만약 충돌한 collision의 태그가 노트면 음악 플레이
             {
-                gameAudio.Play();
+                //gameAudio.Play();
 
                 musicPlay = true;
             }

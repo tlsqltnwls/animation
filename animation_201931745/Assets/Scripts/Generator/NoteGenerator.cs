@@ -19,18 +19,23 @@ public class NoteGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentTime += Time.deltaTime; // currentTime을 1초에 1씩 증가하게 만듦
+        this.currentTime += Time.deltaTime; // currentTime을 1초에 1씩 증가하게 만듦
 
-        if (currentTime >= 60d / bpm)
-                                // 비트 한 개 당 등장 속도 (60/120 = 1beat 당 0.5초)
+        noteAppear();
+    }
+
+    void noteAppear ()
+    {
+        if (currentTime >= 60d / this.bpm)
+        // 비트 한 개 당 등장 속도 (60/120 = 1beat 당 0.5초)
         {
-            GameObject t_note =  Instantiate(NotePrefab);
+            GameObject notePrefab = Instantiate(NotePrefab);
 
             //t_note.transform.SetParent(this.transform);
-            timingManager.boxNoteList.Add(t_note);
-                                // 노트가 생성되는 순간 노트 list에 해당 노트를 추가 시켜줌
+            timingManager.boxNoteList.Add(notePrefab);
+            // 노트가 생성되는 순간 노트 list에 해당 노트를 추가 시켜줌
 
-            currentTime -= 60d / bpm; // currentTime = 0으로 하면 미세한 차이로 노트 생성이 계속 밀려버림
+            this.currentTime -= 60d / this.bpm; // currentTime = 0으로 하면 미세한 차이로 노트 생성이 계속 밀려버림
         }
     }
 
